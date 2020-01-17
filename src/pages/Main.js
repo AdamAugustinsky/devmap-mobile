@@ -44,7 +44,6 @@ function Main( { navigation } ) {
         techs
       }
     });
-    
 
     setDevs(response.data.devs);
   }
@@ -60,12 +59,12 @@ function Main( { navigation } ) {
   return ( 
     <>
     <MapView onRegionChangeComplete={handleRegionChanged} initialRegion={currentRegion} style={styles.map}>
-      {devs.map(dev => {
-        <Marker ket={dev._id} coordinate={{latitude: dev.location.coordinates[1], longitude: dev.location.coordinates[0]}} >
+      {devs.map(dev => (
+        <Marker key={dev._id} coordinate={{latitude: dev.location.coordinates[1], longitude: dev.location.coordinates[0]}} >
           <Image style={styles.avatar} source={{uri: dev.avatar_url}} />
 
           <Callout onPress={() => {
-            navigation.navigate('Profile', { github_username: 'AdamAugustinsky' });
+            navigation.navigate('Profile', { github_username: dev.github_username });
           }}>
             <View style={styles.callout}>
               <Text style={styles.devName}>{dev.github_username}</Text>
@@ -74,7 +73,7 @@ function Main( { navigation } ) {
             </View>
           </Callout>
         </Marker>
-      })
+      ))
           
       }
     </MapView>
